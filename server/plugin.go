@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"sync"
 
+	"github.com/gorilla/mux"
 	"github.com/mattermost/mattermost-server/v5/plugin"
 )
 
@@ -18,11 +18,18 @@ type Plugin struct {
 	// configuration is the active plugin configuration. Consult getConfiguration and
 	// setConfiguration for usage.
 	configuration *configuration
+
+	root *mux.Router
+}
+
+func (p *Plugin) OnActivate() error {
+	p.SetupRouting()
+	return nil
 }
 
 // ServeHTTP demonstrates a plugin that handles HTTP requests by greeting the world.
 func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello, world!")
+	p.root.ServeHTTP(w, r)
 }
 
 // See https://developers.mattermost.com/extend/plugins/server/reference/
