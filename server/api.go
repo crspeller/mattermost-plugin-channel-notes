@@ -41,6 +41,10 @@ func (p *Plugin) saveNote(w http.ResponseWriter, r *http.Request) {
 
 	p.API.KVSet("note_"+channelId, []byte(noteRequest.Note))
 
+	p.API.PublishWebSocketEvent("channel_note_update", map[string]interface{}{"note": noteRequest.Note}, &model.WebsocketBroadcast{
+		ChannelId: channelId,
+	})
+
 	w.WriteHeader(http.StatusOK)
 }
 
