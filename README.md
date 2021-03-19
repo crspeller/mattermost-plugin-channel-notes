@@ -8,13 +8,13 @@ Sometimes the channel header isn't enough for all the information you want to ke
 
 
 ## Screenshots
-[Screenshot 1](!./assets/screenshot1.png)
-[Screenshot 2](!./assets/screenshot2.png)
+![Screenshot 1](./assets/screenshot1.png)
+![Screenshot 2](./assets/screenshot2.png)
 
 
 ## Integration with [Incident Collaboration](https://github.com/mattermost/mattermost-plugin-incident-collaboration) (Work in progress!)
 
 The channel notes can be made available in the RHS of the [Incident Collaboration](https://github.com/mattermost/mattermost-plugin-incident-collaboration) plugin.
 
-[Integration Screenshot](!./assets/incidentintegration.png)
+![Integration Screenshot](./assets/incidentintegration.png)
 
