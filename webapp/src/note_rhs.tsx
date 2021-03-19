@@ -56,8 +56,9 @@ const EditButton = styled.span`
 `;
 
 const NoteContainer = styled.div`
-    margin: 5px;
     padding: 16px;
+    overflow-y: auto;
+    overflow-x: hidden;
 `;
 
 const NoteInput = styled.textarea`
