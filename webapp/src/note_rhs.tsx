@@ -113,13 +113,9 @@ const NoteRHS: FC = () => {
         updateUpstream(currentChannelId, value);
     };
 
-    useEffect(() => {
-        const doFetch = async () => {
-            const fetchedNote = await fetchNote(currentChannelId);
-            dispatch(setNoteValue(currentChannelId, fetchedNote));
-        };
-        doFetch();
-    }, [currentChannelId, dispatch]);
+    if (!note && note !== '') {
+        return null;
+    }
 
     if (editMode) {
         return (
