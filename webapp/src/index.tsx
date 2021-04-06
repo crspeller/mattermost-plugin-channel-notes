@@ -21,7 +21,7 @@ export default class Plugin {
         const {toggleRHSPlugin} = registry.registerRightHandSidebarComponent(NoteRHS, 'Notes');
         const boundToggleRHSAction = (): void => store.dispatch(toggleRHSPlugin);
 
-        registry.registerChannelHeaderButtonAction(<HeaderIcon/>, boundToggleRHSAction, 'Incidents', 'Incidents');
+        registry.registerChannelHeaderButtonAction(<HeaderIcon/>, boundToggleRHSAction, 'Channel Notes', 'Channel Notes');
 
         const channelNoteUpateEvent = `custom_${manifest.id}_channel_note_update`;
         registry.registerWebSocketEventHandler(channelNoteUpateEvent, handleWebsocketNoteUpdate(store.getState, store.dispatch));
