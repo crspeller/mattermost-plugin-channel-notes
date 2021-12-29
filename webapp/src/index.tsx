@@ -1,4 +1,5 @@
 import {GlobalState} from 'mattermost-redux/types/store';
+import {getConfig} from 'mattermost-redux/selectors/entities/general';
 
 import React from 'react';
 import {Action, Store} from 'redux';
@@ -22,6 +23,16 @@ export default class Plugin {
         const boundToggleRHSAction = (): void => store.dispatch(toggleRHSPlugin);
 
         registry.registerChannelHeaderButtonAction(<HeaderIcon/>, boundToggleRHSAction, 'Channel Notes', 'Channel Notes');
+
+        if (registry.registerAppBarComponent) {
+            const siteUrl = getConfig(store.getState())?.SiteURL || '';
+            const iconURL = `${siteUrl}/plugins/${manifest.id}/public/app-bar-icon.png`;
+            registry.registerAppBarComponent(
+                iconURL,
+                boundToggleRHSAction,
+                'Channel Notes',
+            );
+        }
 
         const channelNoteUpateEvent = `custom_${manifest.id}_channel_note_update`;
         registry.registerWebSocketEventHandler(channelNoteUpateEvent, handleWebsocketNoteUpdate(store.getState, store.dispatch));
