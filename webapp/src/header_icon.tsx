@@ -6,7 +6,7 @@ import {GlobalState} from 'mattermost-redux/types/store';
 import {getCurrentChannelId} from 'mattermost-redux/selectors/entities/common';
 
 import {fetchNote} from 'client';
-import {setNoteValue} from 'redux_connectors';
+import {makeSelectNoteValue} from 'redux_connectors';
 
 interface HeaderIconProps {
     active?: boolean;
@@ -20,18 +20,9 @@ const HeaderIconContainer = styled.div<HeaderIconProps>`
 const HeaderIcon:FC = () => {
     const dispatch = useDispatch();
     const currentChannelId = useSelector<GlobalState, string>(getCurrentChannelId);
-    const [hasNote, setHasNote] = useState(false);
+    const note = useSelector<GlobalState, string>(makeSelectNoteValue(currentChannelId));
 
-    useEffect(() => {
-        const doFetch = async () => {
-            const fetchedNote = await fetchNote(currentChannelId);
-            setHasNote(fetchedNote !== '');
-            dispatch(setNoteValue(currentChannelId, fetchedNote));
-        };
-        doFetch();
-    }, [currentChannelId, dispatch]);
-
-    if (hasNote) {
+    if (note) {
         return (
             <HeaderIconContainer
                 active={true}

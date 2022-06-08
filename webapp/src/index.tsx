@@ -1,3 +1,4 @@
+import WebsocketEvents from 'mattermost-redux/constants/websocket';
 import {GlobalState} from 'mattermost-redux/types/store';
 
 import React from 'react';
@@ -8,7 +9,7 @@ import {PluginRegistry} from 'mattermost-webapp/plugins/registry';
 
 import NoteRHS from 'note_rhs';
 import HeaderIcon from 'header_icon';
-import {handleWebsocketNoteUpdate} from 'websocket';
+import {handleWebsocketNoteUpdate, handleWebsocketChannelViewed} from 'websocket';
 
 import manifest from './manifest';
 import {reducer} from './redux_connectors';
@@ -25,6 +26,7 @@ export default class Plugin {
 
         const channelNoteUpateEvent = `custom_${manifest.id}_channel_note_update`;
         registry.registerWebSocketEventHandler(channelNoteUpateEvent, handleWebsocketNoteUpdate(store.getState, store.dispatch));
+        registry.registerWebSocketEventHandler(WebsocketEvents.CHANNEL_VIEWED, handleWebsocketChannelViewed(store.getState, store.dispatch))
     }
 }
 
