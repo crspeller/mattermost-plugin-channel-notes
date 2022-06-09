@@ -11,12 +11,14 @@ const RootFetcher = () => {
     const currentChannelId = useSelector(getCurrentChannelId);
 
     useEffect(() => {
-        const fetch = async () => {
-            const fetchedNote = await fetchNote(currentChannelId);
-            dispatch(setNoteValue(currentChannelId, fetchedNote));
+        const fetchChannelNote = async () => {
+            if (currentChannelId) {
+                const fetchedNote = await fetchNote(currentChannelId);
+                dispatch(setNoteValue(currentChannelId, fetchedNote));
+            }
         };
 
-        fetch();
+        fetchChannelNote();
     }, [currentChannelId]);
 
     return null;
