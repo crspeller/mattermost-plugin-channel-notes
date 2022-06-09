@@ -9,7 +9,8 @@ import {PluginRegistry} from 'mattermost-webapp/plugins/registry';
 
 import NoteRHS from 'note_rhs';
 import HeaderIcon from 'header_icon';
-import {handleWebsocketNoteUpdate, handleWebsocketChannelViewed} from 'websocket';
+import RootFetcher from 'root_fetcher';
+import {handleWebsocketNoteUpdate} from 'websocket';
 
 import manifest from './manifest';
 import {reducer} from './redux_connectors';
@@ -17,6 +18,7 @@ import {reducer} from './redux_connectors';
 export default class Plugin {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     public async initialize(registry: PluginRegistry, store: Store<GlobalState, Action<Record<string, unknown>>>) {
+        registry.registerRootComponent(RootFetcher);
         registry.registerReducer(reducer);
 
         const {toggleRHSPlugin} = registry.registerRightHandSidebarComponent(NoteRHS, 'Notes');
@@ -26,7 +28,6 @@ export default class Plugin {
 
         const channelNoteUpateEvent = `custom_${manifest.id}_channel_note_update`;
         registry.registerWebSocketEventHandler(channelNoteUpateEvent, handleWebsocketNoteUpdate(store.getState, store.dispatch));
-        registry.registerWebSocketEventHandler(WebsocketEvents.CHANNEL_VIEWED, handleWebsocketChannelViewed(store.getState, store.dispatch))
     }
 }
 
