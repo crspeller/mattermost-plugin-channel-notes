@@ -1,3 +1,4 @@
+import WebsocketEvents from 'mattermost-redux/constants/websocket';
 import {GlobalState} from 'mattermost-redux/types/store';
 import {getConfig} from 'mattermost-redux/selectors/entities/general';
 
@@ -9,6 +10,7 @@ import {PluginRegistry} from 'mattermost-webapp/plugins/registry';
 
 import NoteRHS from 'note_rhs';
 import HeaderIcon from 'header_icon';
+import RootFetcher from 'root_fetcher';
 import {handleWebsocketNoteUpdate} from 'websocket';
 
 import manifest from './manifest';
@@ -17,6 +19,7 @@ import {reducer} from './redux_connectors';
 export default class Plugin {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     public async initialize(registry: PluginRegistry, store: Store<GlobalState, Action<Record<string, unknown>>>) {
+        registry.registerRootComponent(RootFetcher);
         registry.registerReducer(reducer);
 
         const {toggleRHSPlugin} = registry.registerRightHandSidebarComponent(NoteRHS, 'Notes');
