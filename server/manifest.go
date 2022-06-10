@@ -19,7 +19,7 @@ const manifestStr = `
   "support_url": "https://github.com/crspeller/mattermost-plugin-channel-notes/issues",
   "release_notes_url": "https://github.com/crspeller/mattermost-plugin-channel-notes/releases",
   "icon_path": "assets/starter-template-icon.svg",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "min_server_version": "5.32.0",
   "server": {
     "executables": {
