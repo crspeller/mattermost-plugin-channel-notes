@@ -44,13 +44,18 @@ module.exports = {
             'node_modules',
             path.resolve(__dirname),
         ],
+        alias: {
+            'mattermost-redux': path.resolve(__dirname, './node_modules/mattermost-webapp/packages/mattermost-redux/src/'),
+            '@mattermost/types': path.resolve(__dirname, './node_modules/mattermost-webapp/packages/types/src/'),
+            reselect: path.resolve(__dirname, './node_modules/mattermost-webapp/packages/reselect/src/index'),
+        },
         extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
     },
     module: {
         rules: [
             {
                 test: /\.(js|jsx|ts|tsx)$/,
-                exclude: /node_modules/,
+                exclude: /node_modules\/(?!(mattermost-webapp)\/).*/,
                 use: {
                     loader: 'babel-loader',
                     options: {
